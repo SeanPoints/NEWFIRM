@@ -33,7 +33,6 @@ def log_sky_usage(obj_file, sky_files, logfile):
         for i, sky in enumerate(sky_files, start=1):
             f.write(f"   SKY{i:03d}: {sky}\n")
 
-
 # ============================================================
 # BUILD SOURCE MASK
 # ============================================================
@@ -249,7 +248,7 @@ while j < num_detectors:
     os.makedirs(outdir, exist_ok=True)
 
     obs_tab = Table.read(
-        os.path.join(ext_dir, "sky_object_summary.txt"),
+        os.path.join(ext_dir, "skysub_summary.txt"),
         format="ascii.fixed_width"
     )
 
