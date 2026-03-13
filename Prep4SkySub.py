@@ -131,10 +131,9 @@ while j < num_detectors:
 
    #print(ext_dir)
 
-#   obj_files = glob('%s/fdtc4n_object*fits' % (ext_dir))
-   obj_files = glob('%s/fdtc4n_*.fits' % (ext_dir))
+   obj_files = glob('%s/fdtc4n_object*fits' % (ext_dir))
    sorted_obj_files = sorted(obj_files)
-   out_obj = ext_dir + 'sky_object.txt'
+   out_obj = ext_dir + 'skysub.txt'
    out_obj_sum = out_obj.replace('.txt', '_summary.txt')
    short_obj = get_last_word_in_path(out_obj)
    short_obj_sum = get_last_word_in_path(out_obj_sum)
