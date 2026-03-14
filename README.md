@@ -150,5 +150,5 @@ functionality.
 
 Sean Points  
 NSFs National Optical-Infrared Astronomy Research Laboratory (NOIRLab)<br>
-Cerro Tololo Inter-American Observatory (CTIO)
+Cerro Tololo Inter-American Observatory (CTIO)</br>
 sean.points@noirlab.edu
