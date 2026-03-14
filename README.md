@@ -31,6 +31,7 @@ NumPy: 1.25.0
 SciPy: 1.10.1
 Astropy: 5.1.1
 Photutils: 1.11.0
+Matplotlib: 3.9.2
 ```
 ---
 
@@ -39,28 +40,34 @@ Photutils: 1.11.0
 Clone the repository:
 
 ```bash
-git clone https://github.com/username/projectname.git
-cd projectname
+cd $HOME/bin
+git clone https://github.com/SeanPoints/NEWFIRM.git ./newfirm
 ```
 
-(Optional) create a virtual environment:
+Place the path in your $PATH environment:
 
 ```bash
-python -m venv env
-source env/bin/activate
+PATH=$PATH:$HOME/bin/newfirm/
+````
+
+Create a conda environment:
+
+```bash
+conda create --name newfirm scipy
+conda activate newfirm
 ```
 
 Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+conda install astropy
 ```
 
 ---
 
 ## Usage
 
-Example command:
+All programs are run from the command line:
 
 ```bash
 python reduce_image.py input.fits
