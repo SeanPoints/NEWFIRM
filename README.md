@@ -112,30 +112,24 @@ SkySub.py
 
 Expected input format:
 
-- FITS images
+- Multi-extension FITS images with 4 extensions
 - WCS headers recommended
 - Example header keywords:
 
 ```
 DATE-OBS
 EXPTIME
+EXPCOADD
+COADDS
 FILTER
+FSAMPLE
 ```
 
 ---
 
 ## Output
 
-Generated products:
-
-```
-output/
-   sky_model.fits
-   reduced_image.fits
-   photometry_catalog.fits
-   reduction_log.txt
-```
-
+The 
 ---
 
 ## Repository Structure
