@@ -1,19 +1,18 @@
-This repository contains tools developed to reduce a set of NEWFIRM images obtained at the CTIO Blanco 4-m telescope.
+# NEWFIRM Reduction Software
 
-To use these tools this directory should be placed in both PATH and PYTHONPATH
-
-# Project Name
-
-Short one-sentence description of what the code does.
-
-Example:
-Python tools for reducing and analyzing near-infrared astronomical images.
+Python tools for reducing near-infrared data obtained with NEWFIRM on the CTIO Blanco 4-m telescope.
 
 ---
 
 ## Overview
 
-Brief description of the project.
+This repository contains Python programs to process NIR imaging data obtained with NEWFIRM on the CTIO
+Blanco 4-m telescope.  The pipeline renames the data to a common scheme to facilitate processing, splits
+the multi-extension FITS (MEF) data into separate directories, trims the images, combines dark frames, based
+upon number of coadds, exposure time per coadd, and number of Fowler samples, combines "on" and "off" 
+flat-field images for each filter, creates bad pixel masks, performs the dark subtraction, bad-pixel correction,
+and flat-fields the raw object data.  After the raw science data are reduced, images are sorted by filter, 
+number of coadds, exposure times per coadd, and number of Fowler samples to create sky images that  
 
 Explain:
 - what problem the software solves
