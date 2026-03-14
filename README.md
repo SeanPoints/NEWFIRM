@@ -129,42 +129,20 @@ FSAMPLE
 
 ## Output
 
-The 
----
+The pipeline produces sky-subtracted images in a subdirectory of the top-level data directory:
 
-## Repository Structure
+data/UTYYYYMMDD/Skysub
 
-```
-projectname/
-│
-├── scripts/
-│   reduce_image.py
-│   make_sky_model.py
-│
-├── examples/
-│   example_data.fits
-│
-├── docs/
-│
-└── README.md
-```
+As mentioned above the individual detectors have are not yet recombined into a single image nor 
+is a final astrometric solution applied to the images.  These steps are currently performed using
+Emmanuel Bertin's Astromatic software: SExtractor, SCAMP, and SWarp.
 
 ---
 
-## Contributing
+## Contributions or comments
 
-Contributions are welcome.
-
-Typical workflow:
-
-```
-main  → stable code
-dev   → development branch
-```
-
-1. Create a branch from `dev`
-2. Make changes
-3. Submit a pull request
+Contributions are welcome as are coments to improve the code to provide additional
+functionality.
 
 ---
 
