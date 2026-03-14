@@ -67,18 +67,13 @@ conda install astropy
 
 ## Usage
 
-All programs are run from the command line:
+All programs are run from the command line with no arguments from the top level data directory.  
+This top level directory should follow the format of UTYYYYMMDD of the calendar date of the observations. 
 
 ```bash
-python reduce_image.py input.fits
+cd data/UT20260228
+CheckDateObs.py
 ```
-
-Example with options:
-
-```bash
-python reduce_image.py input.fits --sky sky_model.fits --output result.fits
-```
-
 ---
 
 ## Example Workflow
@@ -86,15 +81,29 @@ python reduce_image.py input.fits --sky sky_model.fits --output result.fits
 Typical reduction steps:
 
 ```
-raw images
+CheckDateObs.py
    ↓
-sky model creation
+RenameFiles.py
    ↓
-sky subtraction
+SortFITS.py
    ↓
-source detection
+SplitMEF.py
    ↓
-photometry catalog
+TrimImage.py
+   ↓
+SortCombDarks.py
+   ↓
+SortCombFlats.py
+   ↓
+MakeBadPixelMask.py
+   ↓
+Prep4DarkFlatCor.py
+   ↓
+DarkFlatCorrect.py
+   ↓
+Prep4SkySub.py
+   ↓
+SkySub.py
 ```
 
 ---
