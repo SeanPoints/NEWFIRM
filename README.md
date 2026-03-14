@@ -12,39 +12,26 @@ the multi-extension FITS (MEF) data into separate directories, trims the images,
 upon number of coadds, exposure time per coadd, and number of Fowler samples, combines "on" and "off" 
 flat-field images for each filter, creates bad pixel masks, performs the dark subtraction, bad-pixel correction,
 and flat-fields the raw object data.  After the raw science data are reduced, images are sorted by filter, 
-number of coadds, exposure times per coadd, and number of Fowler samples to create sky images that  
+number of coadds, exposure times per coadd, and number of Fowler samples to create sky images that scaled to 
+imdividual images for sky-subtraction.
 
-Explain:
-- what problem the software solves
-- what kind of data it works on
-- typical workflow
-
-Example:
-
-This repository contains Python programs used to process NIR imaging data.
-The pipeline performs sky subtraction, source detection, and photometric
-measurements using Astropy and Photutils.
+This pipeline does not, as yet, compute the final astrometric WCS for the images nor does it recombine the 
+individual exposures or stack images.  These issues will be addressed in future releases.
 
 ---
 
 ## Requirements
 
-List dependencies.
+This pipeline has been tested on a MacBook Pro (M3 Pro running Sequoia 15.7.3) and GNU/Linux (Ubuntu 18.04) using
+an anaconda environment.
 
 ```bash
-python >=3.10
-numpy
-astropy
-photutils
-matplotlib
+Python: 3.9.18
+NumPy: 1.25.0
+SciPy: 1.10.1
+Astropy: 5.1.1
+Photutils: 1.11.0
 ```
-
-Or with pip:
-
-```bash
-pip install numpy astropy photutils matplotlib
-```
-
 ---
 
 ## Installation
