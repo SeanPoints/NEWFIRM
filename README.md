@@ -133,6 +133,9 @@ The pipeline produces sky-subtracted images in a subdirectory of the top-level d
 
 data/UTYYYYMMDD/Skysub
 
+Each program produces a log file <Program>.log during execution.  The logs contain details of the
+steps perfomred by the program and may be useful to debug any failures.
+
 As mentioned above the individual detectors have are not yet recombined into a single image nor 
 is a final astrometric solution applied to the images.  These steps are currently performed using
 Emmanuel Bertin's Astromatic software: SExtractor, SCAMP, and SWarp.
