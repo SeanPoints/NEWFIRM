@@ -87,7 +87,7 @@ RenameFiles.py
    ↓
 SortFITS.py
    ↓
-SplitMEF.py
+SplitMef.py
    ↓
 TrimImage.py
    ↓
