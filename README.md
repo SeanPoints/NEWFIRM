@@ -149,6 +149,6 @@ functionality.
 ## Author
 
 Sean Points  
-NSFs National Optical-Infrared Astronomy Research Laboratory (NOIRLab)
+NSFs National Optical-Infrared Astronomy Research Laboratory (NOIRLab)<br>
 Cerro Tololo Inter-American Observatory (CTIO)
 sean.points@noirlab.edu
