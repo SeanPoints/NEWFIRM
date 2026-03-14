@@ -146,18 +146,9 @@ functionality.
 
 ---
 
-## License
-
-Specify license here.
-
-Example:
-
-MIT License
-
----
-
 ## Author
 
-Name  
-Institution  
-Contact email
+Sean Points  
+NSFs National Optical-Infrared Astronomy Research Laboratory (NOIRLab)
+Cerro Tololo Inter-American Observatory (CTIO)
+sean.points@noirlab.edu
