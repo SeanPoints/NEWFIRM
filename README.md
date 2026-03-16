@@ -95,7 +95,7 @@ SortCombDarks.py
    ↓
 SortCombFlats.py
    ↓
-MakeBadPixelMask.py
+MakeBadPixMask.py
    ↓
 Prep4DarkFlatCor.py
    ↓
