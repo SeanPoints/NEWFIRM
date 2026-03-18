@@ -124,6 +124,16 @@ def find_matching_flat(obj_row, flat_data, ext_dir, cal_dir, index):
 
     return 'No_match'   
 
+def find_badpix_file(ext_dir, cal_dir, index):
+    bpname = f"nf_bp_{index}.fits"
+    full_bp = ext_dir + bpname
+    if os.path.exists(full_bp):
+        return full_bp
+    else:
+        full_bp = cal_dir + bpname
+        return full_bp
+
+
 def subtract_dark(obj_file, sub_file, ext_dir, dark_file, scale, bp_file):
     # Open the Object FITS file
     #print(ext_dir + obj_file)
@@ -221,7 +231,7 @@ def flat_correct(obj_file, fcor_file, ext_dir, flat_file):
 # Start main program
 ###
 workdir = os.getcwd() + '/'
-calpath_root = '/Users/sean.points/data/NEWFIRM/CALS/'
+calpath_root = '/home/points/data/NEWFIRM/CALS/'
 
 logfile = workdir + 'DarkFlatCorrect.log'
 
@@ -276,7 +286,8 @@ while j < num_detectors:
 
         fname = obj['File']
         sname = fname.replace('tc4n', 'dtc4n')
-        bpfile = ext_dir + 'nf_bp_' + str(j) + '.fits'
+        bpfile = find_badpix_file(ext_dir, cal_dir, j)
+        #bpfile = ext_dir + 'nf_bp_' + str(j) + '.fits'
         subtract_dark(fname, sname, ext_dir, dark_file, scale, bpfile)
 
         dark_results.append({
