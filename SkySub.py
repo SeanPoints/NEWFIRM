@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import os
+import shutil
 import sys
 import numpy as np
 from astropy.io import fits
@@ -14,6 +15,22 @@ from photutils.segmentation import detect_sources
 from photutils.segmentation import make_2dgaussian_kernel
 from astropy.convolution import convolve
 from datetime import datetime
+
+# ============================================================
+# CLEANUP FILES AFTER PROCESSING
+# ============================================================
+
+def files_cleanup(ext_dir, save_dir):
+    # Create destination directory if it doesn't exist
+    os.makedirs(save_dir, exist_ok=True)
+
+    for filename in os.listdir(ext_dir):
+        if filename.startswith("fdtc4n") and filename.endswith(".fits"):
+            src = os.path.join(ext_dir, filename)
+            dst = os.path.join(save_dir, filename)
+            shutil.move(src, dst)
+
+    print("Files moved successfully!")
 
 # ============================================================
 # SETUP LOGGING FOR OBJECTS
@@ -263,6 +280,13 @@ while j < num_detectors:
 
         subtract_sky(obj_file, sky_files, ext_dir, outdir)
     j = j + 1
+
+#j = 1
+#while j < num_detectors:
+#    ext_dir = workdir + '/' + str(j) + '/'
+#    save_dir = ext_dir + 'Raw/'
+#    files_cleanup(ext_dir, save_dir)
+#    j = j + 1
 
 time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 

@@ -71,7 +71,7 @@ def filter_fits_files(files, keyword="OBJECT"):
     return pass_files
 
 def filter_filename(allfiles):
-    omit_keywords = {"junk", "jnk", "temp", "tmp", "test", "tst", "diff", "zp", "focus"}
+#   omit_keywords = {"junk", "jnk", "temp", "tmp", "test", "tst", "diff", "zp", "focus"}
     omit_keywords = {"diff", "ajunk", "zp", "focus"}
 
     return [
