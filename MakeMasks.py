@@ -20,8 +20,8 @@ def get_last_word_in_path(file_path):
     return last_word
 
 workdir = os.getcwd()
-swarp_dir = workdir + 'Skysub/'
-logfile = workdir + 'MakeMasks.log'
+swarp_dir = workdir + '/' + 'Skysub/'
+logfile = workdir + '/' + 'MakeMasks.log'
 
 if os.path.exists(logfile):
     logfile_flag = "a"
