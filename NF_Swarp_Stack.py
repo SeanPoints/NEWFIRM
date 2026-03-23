@@ -18,6 +18,7 @@ def get_last_word_in_path(file_path):
 
 workdir = os.getcwd()
 swarp_dir = workdir + '/' + 'Skysub/'
+wcs_path = '/Users/sean.points/data/NEWFIRM/WCS/'
 outfile = swarp_dir + "run_swarp_stack.sh"
 outdir = swarp_dir + "Stacked/"
 
@@ -55,7 +56,7 @@ with open(outfile, "w") as fout:
         new_mask_file = get_last_word_in_path(mask_file)
 
         cmd = (
-            f"swarp @{new_sw_file} -c /Users/sean.points/data/NEWFIRM/WCS/default.swarp "
+            f"swarp @{new_sw_file} -c {wcs_path}default.swarp "
             f"-IMAGEOUT_NAME Stacked/{new_base}.sw.fits "
             f"-WEIGHTOUT_NAME /dev/null "
             f"-WEIGHT_TYPE MAP_WEIGHT "
