@@ -71,8 +71,11 @@ All programs are run from the command line with no arguments from the top level 
 This top level directory should follow the format of UTYYYYMMDD of the calendar date of the observations. 
 
 ```bash
-cd data/UT20260228
+cd data/UTYYYYMMDD
 CheckDateObs.py
+RenameFiles.py
+...
+SkySub.py
 ```
 ---
 
