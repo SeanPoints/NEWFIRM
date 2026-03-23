@@ -175,6 +175,40 @@ Astrometric solutions can also be obtained by using the Astrometry.net software 
 
 ---
 
+## Astrometry files
+
+The default pipeline does not perform an astrometric solution for the data. After the data have been sky-subtracted, 
+one will need to place an astrometric solution on the individual images before stacking.  All of these steps can be 
+performed using Emmanuel Bertin's Astromatic software: SExtractor, SCAMP, and SWarp (https://github.com/astromatic).  
+
+Astrometric solutions can also be obtained by using the Astrometry.net software at https://astrometry.net.
+
+Some additional programs have been written to allow one to use the Astromatic software.  These are:
+
+```
+SetupSextractor.py
+SetupScamp.py
+SetupSwarp.py
+MakeSwarpMasks.py
+SetupSwarpStack.py
+NF_Swarp_Stack.py
+WCS/default.nnw
+WCS/default.param
+WCS/default.scamp
+WCS/default.sex
+WCS/default.swarp
+WCS/gauss_2.5_5x5.conv
+```
+
+The WCS directory contains the default configuration files that I use to obtain the astrometric solutions for images and to 
+stack images based on OBJECT, FILTER, and EXPTIME.  If used, one should place these files in a directory where one is reducing 
+the NEWFIRM data.  One will need to edit WCS/default.sex to update the paths for:
+PARAMETERS_NAME\n
+FILTER_NAME,\n
+STARNNW_NAME\n
+
+---
+
 ## Contributions or comments
 
 Contributions are welcome as are coments to improve the code to provide additional
