@@ -6,7 +6,7 @@ CTIO
 
 SDP 2025-10-08
 
-Synopsis: Prepare files for sky-flat reduction
+Synopsis: Prepare files for sky subtraction.
 
 # Prepare for object image reductions
 # Read object files in data directory and print to list with FITS keywords

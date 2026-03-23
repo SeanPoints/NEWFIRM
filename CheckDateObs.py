@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
 
+'''
+CTIO
+
+SDP 2026-03-01
+
+Synopsis: Checks that FITS keyword DATE-OBS is valid.
+
+Program reads FITS files in current working directory and checks that
+keyword DATE-OBS is valid.  Program was written because some values 
+for DATE-OBS had a seconds part of 60.n.  This would cause an error when
+trying to rename the file based on DATE-OBS.
+'''
+
 import sys
 import os
 from glob import glob

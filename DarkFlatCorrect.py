@@ -4,8 +4,16 @@
 '''
 CTIO
 
+SDP 2026-02-01
+
 Synopsis: Finds appropriate master dark and master flat and applies the 
-correction to the object data
+correction to the object data.  Program also corrects data using bad pixel
+masks.
+
+Software also contains variable calpath_root.  If a dark, flat, or, bad pixel
+file is not found in current working directory, it looks for appropriate file
+in the calpath_root directory.
+
 '''
 import os
 import shutil

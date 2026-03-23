@@ -4,7 +4,16 @@
 '''
 CTIO
 
-Synopsis: Make bad pixel mask using KXs On and Off master flats
+SDP 2026-03-01
+
+Synopsis: Make bad pixel mask using KXs On and Off master flats.
+
+Searches each extension directory for flat_KXs_on.fits and 
+flat_KXs_off.fits.  Divides the On flat by the Off flat and
+makes bad pixel map based on the ratio image.  Additionally 
+removes lines 2000:2048 from detector 3 to account for the
+hot pixel that corrupts those data.
+
 '''
 import os
 import sys

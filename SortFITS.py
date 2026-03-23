@@ -1,6 +1,30 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+'''
+CTIO
+
+SDP 2026-03-01
+
+Synopsis: Reads FITS files in working directory and sorts them 
+by increasing DATE-OBS to write a summary file of the observations 
+obtained.
+
+The summary file includes keywords:
+DATE-OBS
+EXPTIME
+FILTER
+TELFOCUS
+TEMPOUT
+AITMASS
+ZD
+AZ
+TELRA
+TELDEC
+SEEING
+OBJECT
+
+'''
 
 import os
 from astropy.io import fits

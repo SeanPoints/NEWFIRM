@@ -1,6 +1,32 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+'''
+CTIO
+
+SDP 2026-03-13
+
+Synopsis: Uses the summary files to read a FITS file.  
+
+(a) First reads summary table to check if any files has OBSTYPE keyword
+with value sky.
+
+(b) If a sky frame is found the program searchs for corresponding object
+or standard fields that are with 10 degrees of the sky frame and taken
+within 1 hour of the sky frame.  These limits can be changed in the 
+program.  Future versions should let these values be set from command 
+line arguments.
+
+(c) If all observations have an OBSTYPE of [object, standard] the program 
+selects up to nine observations with the same FILTER, EXPTIME, COADDS, 
+EXPCOADD, and FSAMPLE that were taken within 30 minutes of the observation,
+including the observation itself.
+
+(d) The sky image is scaled to the observation image and subtracted.  
+The subtracted data are saved to new directory Skysub.
+
+'''
+
 import os
 import shutil
 import sys
