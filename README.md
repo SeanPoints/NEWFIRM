@@ -203,9 +203,10 @@ WCS/gauss_2.5_5x5.conv
 The WCS directory contains the default configuration files that I use to obtain the astrometric solutions for images and to 
 stack images based on OBJECT, FILTER, and EXPTIME.  If used, one should place these files in a directory where one is reducing 
 the NEWFIRM data.  One will need to edit WCS/default.sex to update the paths for:
-PARAMETERS_NAME\n
-FILTER_NAME,\n
-STARNNW_NAME\n
+PARAMETERS_NAME, FILTER_NAME, and STARNNW_NAME.
+
+Furthermore, the variable "wcs_path" will need to be modified in SetupSextractor.py, SetupScamp.py, SetupSwarp.py, and
+NF_Swarp_Stack.py.
 
 ---
 
