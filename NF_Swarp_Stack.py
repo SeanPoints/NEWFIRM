@@ -18,7 +18,7 @@ def get_last_word_in_path(file_path):
 
 workdir = os.getcwd()
 swarp_dir = workdir + '/' + 'Skysub/'
-outfile = swarp_dir + "run_swarp.sh"
+outfile = swarp_dir + "run_swarp_stack.sh"
 outdir = swarp_dir + "Stacked/"
 
 if not os.path.exists(outdir):
