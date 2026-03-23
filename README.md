@@ -130,6 +130,34 @@ FSAMPLE
 
 ---
 
+## Software Description
+
+CheckDateObs.py - 
+
+RenameFiles.py -
+
+SortFITS.py -
+
+SplitMef.py -
+
+TrimImage.py - 
+
+SortCombDarks.py - 
+
+SortCombFlats.py -
+
+MakeBadPixMask.py -
+
+Prep4DarkFlatCor.py - 
+
+DarkFlatCorrect.py -
+
+Prep4SkySub.py -
+
+SkySub.py -
+
+---
+
 ## Output
 
 The pipeline produces sky-subtracted images in a subdirectory of the top-level data directory:
