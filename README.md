@@ -132,7 +132,9 @@ FSAMPLE
 
 ## Software Description
 
-CheckDateObs.py - 
+CheckDateObs.py - This program reads FITS files in the current working directory and checks the header keyword DATE-OBS.  The program is implemented because 
+the TCS sometimes sends a DATE-OBS of YYYY-MM-DDTHH:MM:SS.S where it reports SS.S as 60.n.  This causes an error when trying to rename the files in the next 
+step.  In cases where the SS.S is 60.n, the minute in incremented by 1 and the seconds are reported as 00.n.
 
 RenameFiles.py -
 
