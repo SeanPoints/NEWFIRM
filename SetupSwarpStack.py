@@ -22,6 +22,11 @@ def get_last_word_in_path(file_path):
     last_word = path_components[-1]
     return last_word
 
+def add_leading_zero(integer_value, fixed_length=3):
+    # Convert the integer to a string and prepend zeros to achieve the fixed length
+    str_value = f"{integer_value:0{fixed_length}}"
+    return str_value
+
 # directory containing FITS files
 
 workdir = os.getcwd()
@@ -52,31 +57,37 @@ tab = Table(rows=rows)
 
 print(tab)
 
-grouped = tab.group_by(["OBJECT", "FILTER"])
+grouped = tab.group_by(["OBJECT", "FILTER", "EXPTIME"])
 
 for key, group in zip(grouped.groups.keys, grouped.groups):
     
     obj = key["OBJECT"]
     filt = key["FILTER"]
+    expt = key["EXPTIME"]
+    int_exp = int(expt)
+    sexp = add_leading_zero(int_exp, fixed_length=3)
 
     filelist = list(group["FILENAME"])
 
-    print(f"\nOBJECT={obj}  FILTER={filt}")
+    print(f"\nOBJECT={obj} FILTER={filt} EXPTIME={int_exp}")
     print(filelist)
 
 for key, group in zip(grouped.groups.keys, grouped.groups):
 
     obj = key["OBJECT"]
     filt = key["FILTER"]
+    expt = key["EXPTIME"]
+    int_exp = int(expt)
+    sexp = add_leading_zero(int_exp, fixed_length=3)
 
-    outfile = swarp_dir + f"{obj}.{filt}.sw.txt".replace(" ", "_")
+    outfile = swarp_dir + f"{obj}.{filt}.{sexp}.sw.txt".replace(" ", "_")
 
     with open(outfile, "w") as f:
         for fn in group["FILENAME"]:
             f.write(swarp_dir + fn + "\n")
 
 
-    maskout = swarp_dir + f"{obj}.{filt}.mask.txt".replace(" ", "_")
+    maskout = swarp_dir + f"{obj}.{filt}.{sexp}.mask.txt".replace(" ", "_")
     with open(maskout, "w") as f:
         for fn in group["FILENAME"]:
             mfn = fn.replace("sw","mask")
