@@ -231,7 +231,8 @@ def subtract_sky(obj_file, sky_files, ext_dir, outdir):
 
     sky_model = build_sky_model(obj_data, sky_files, ext_dir)
 
-    result = obj_data - sky_model
+#    result = obj_data - sky_model
+    result = obj_data - sky_model + 20
 
     time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sky_key = f"{time}; Sky-subtracted"
