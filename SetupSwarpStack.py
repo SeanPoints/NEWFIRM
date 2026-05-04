@@ -46,6 +46,8 @@ for fitsfile in sorted_files:
             "OBJECT": hdr.get("OBJECT", "UNKNOWN"),
             "FILTER": hdr.get("FILTER", "UNKNOWN"),
             "EXPTIME": hdr.get("EXPTIME", 0.0),
+            "EXPCOADD": hdr.get("EXPCOADD", 0.0),
+            "COADDS": hdr.get("COADDS", 1),
             "FSAMPLE": hdr.get("FSAMPLE", "UNKNOWN")
         })
 
@@ -57,37 +59,48 @@ tab = Table(rows=rows)
 
 print(tab)
 
-grouped = tab.group_by(["OBJECT", "FILTER", "EXPTIME"])
+#grouped = tab.group_by(["OBJECT", "FILTER", "EXPTIME", "EXPCOADD", "COADDS"])
+grouped = tab.group_by(["OBJECT", "FILTER", "EXPCOADD", "COADDS"])
 
 for key, group in zip(grouped.groups.keys, grouped.groups):
     
     obj = key["OBJECT"]
     filt = key["FILTER"]
-    expt = key["EXPTIME"]
-    int_exp = int(expt)
-    sexp = add_leading_zero(int_exp, fixed_length=3)
+#    expt = key["EXPTIME"]
+#    int_exp = int(expt)
+#    sexp = add_leading_zero(int_exp, fixed_length=3)
+    expc = key["EXPCOADD"]
+    int_expc = int(expc)
+    sexpc = add_leading_zero(int_expc, fixed_length=3)
+    coadds = key["COADDS"]
+    scoadds = add_leading_zero(coadds, fixed_length=2)
 
     filelist = list(group["FILENAME"])
 
-    print(f"\nOBJECT={obj} FILTER={filt} EXPTIME={int_exp}")
+    print(f"\nOBJECT={obj} FILTER={filt} EXPCOADD={int_expc} COADDS={coadds}")
     print(filelist)
 
 for key, group in zip(grouped.groups.keys, grouped.groups):
 
     obj = key["OBJECT"]
     filt = key["FILTER"]
-    expt = key["EXPTIME"]
-    int_exp = int(expt)
-    sexp = add_leading_zero(int_exp, fixed_length=3)
+#    expt = key["EXPTIME"]
+#    int_exp = int(expt)
+#    sexp = add_leading_zero(int_exp, fixed_length=3)
+    expc = key["EXPCOADD"]
+    int_expc = int(expc)
+    sexpc = add_leading_zero(int_expc, fixed_length=3)
+    coadds = key["COADDS"]
+    scoadds = add_leading_zero(coadds, fixed_length=2)
 
-    outfile = swarp_dir + f"{obj}.{filt}.{sexp}.sw.txt".replace(" ", "_")
+    outfile = swarp_dir + f"{obj}.{filt}.{sexpc}s.{scoadds}c.sw.txt".replace(" ", "_")
 
     with open(outfile, "w") as f:
         for fn in group["FILENAME"]:
             f.write(swarp_dir + fn + "\n")
 
 
-    maskout = swarp_dir + f"{obj}.{filt}.{sexp}.mask.txt".replace(" ", "_")
+    maskout = swarp_dir + f"{obj}.{filt}.{sexpc}s.{scoadds}c.mask.txt".replace(" ", "_")
     with open(maskout, "w") as f:
         for fn in group["FILENAME"]:
             mfn = fn.replace("sw","mask")
