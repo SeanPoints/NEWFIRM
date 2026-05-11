@@ -32,6 +32,7 @@ SciPy: 1.10.1
 Astropy: 5.1.1
 Photutils: 1.11.0
 Matplotlib: 3.9.2
+CCDProc: 2.1.1
 ```
 ---
 
@@ -132,11 +133,16 @@ FSAMPLE
 
 ## Software Description
 
+This software assumes that the top level directory for the data is called "UTYYYYMMDD" that corresponds to the calendar date for the
+start of the night.  
+
 CheckDateObs.py - This program reads FITS files in the current working directory and checks the header keyword DATE-OBS.  The program is implemented because 
 the TCS sometimes sends a DATE-OBS of YYYY-MM-DDTHH:MM:SS.S where it reports SS.S as 60.n.  This causes an error when trying to rename the files in the next 
 step.  In cases where the SS.S is 60.n, the minute in incremented by 1 and the seconds are reported as 00.n.
 
-RenameFiles.py -
+RenameFiles.py - This program is executed from the top level NEWFIRM data directory, UTYYYYMMDD, and performs the following tasks: (1) Copies all original data to a subdirectory "SAVE"; (2) Sanitizes the file list so that it will not work on files that have filenames
+that includes certain strings, such as "test", "junk", "temp", "focus", etc; (3) Sanitizes files based on the FITS header "OBJECT" 
+keyword to not process files where the "OBJECT" keyword contains certain strings, such as "test", "junk", etc; (4) This list can be modified as the  
 
 SortFITS.py -
 
