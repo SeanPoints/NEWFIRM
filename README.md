@@ -149,7 +149,8 @@ RenameFiles.py - This program is executed from the top level NEWFIRM data direct
 
 SortFITS.py - This program creates a time-sorted log for the night that includes the following FITS keywords: DATE-OBS, EXPTIME, FILTER, TELFOCUS, TEMPOUT, AIRMASS, ZD, AZ, TELRA, TELDEC, SEEING, and OBJECT. 
 
-SplitMef.py -
+SplitMef.py - This program reads the MEF files in the current directory and splits the extensions into a subdirectory.  The primary
+header information is copied to each extension header.
 
 TrimImage.py - 
 
