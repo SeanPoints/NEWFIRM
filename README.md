@@ -144,7 +144,7 @@ RenameFiles.py - This program is executed from the top level NEWFIRM data direct
 - Copies all original data to a subdirectory "SAVE"
 - Sanitizes the file list so that it will not work on files that have filenames that include certain strings, such as "test", "junk", "temp", "focus", etc
 - Sanitizes files based on the FITS header "OBJECT" keyword to not process files where the "OBJECT" keyword contains certain strings, such as "test", "junk", etc;
-- Moves files that pass the previous steps to a new filename of the format "c4n_<obstype>_<YYMMDD>_<HHMMSS>_<expnum>.fits where the values in <> are taken from the FITS header.  For this purpose, files with an OBSTYPE of "sky" or "standard" are treated as "object".
+- Moves files that pass the previous steps to a new filename of the format "c4n_obstype_YYMMDD_HHMMSS_expnum.fits where the values for obstype, YYMMDD, HHMMSS, and expnum are taken from the FITS header.  For this purpose, files with an OBSTYPE of "sky" or "standard" are treated as "object".
 - Removes any files from the top level data directory that don't pass the sanitization steps.  The strings used to sanitize the files can be modified by the user.  
 
 SortFITS.py - This program creates a time-sorted log for the night that includes the following FITS keywords: DATE-OBS, EXPTIME, FILTER, TELFOCUS, TEMPOUT, AIRMASS, ZD, AZ, TELRA, TELDEC, SEEING, and OBJECT. 
