@@ -140,9 +140,12 @@ CheckDateObs.py - This program reads FITS files in the current working directory
 the TCS sometimes sends a DATE-OBS of YYYY-MM-DDTHH:MM:SS.S where it reports SS.S as 60.n.  This causes an error when trying to rename the files in the next 
 step.  In cases where the SS.S is 60.n, the minute in incremented by 1 and the seconds are reported as 00.n.
 
-RenameFiles.py - This program is executed from the top level NEWFIRM data directory, UTYYYYMMDD, and performs the following tasks: (1) Copies all original data to a subdirectory "SAVE"; (2) Sanitizes the file list so that it will not work on files that have filenames
-that includes certain strings, such as "test", "junk", "temp", "focus", etc; (3) Sanitizes files based on the FITS header "OBJECT" 
-keyword to not process files where the "OBJECT" keyword contains certain strings, such as "test", "junk", etc; (4) This list can be modified as the  
+RenameFiles.py - This program is executed from the top level NEWFIRM data directory, UTYYYYMMDD, and performs the following tasks: 
+- Copies all original data to a subdirectory "SAVE"
+- Sanitizes the file list so that it will not work on files that have filenames that include certain strings, such as "test", "junk", "temp", "focus", etc
+- Sanitizes files based on the FITS header "OBJECT" keyword to not process files where the "OBJECT" keyword contains certain strings, such as "test", "junk", etc;
+- Moves files that pass the previous steps to a new filename of the format "c4n_<obstype>_<YYMMDD>_<HHMMSS>_<expnum>.fits where the values in <> are taken from the FITS header.  For this purpose, files with an OBSTYPE of "sky" or "standard" are treated as "object".
+- Removes any files from the top level data directory that don't pass the sanitization steps.  The strings used to sanitize the files can be modified by the user.  
 
 SortFITS.py -
 
