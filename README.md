@@ -136,37 +136,37 @@ FSAMPLE
 This software assumes that the top level directory for the data is called "UTYYYYMMDD" that corresponds to the calendar date for the
 start of the night.  
 
-** CheckDateObs.py ** - This program reads FITS files in the current working directory and checks the header keyword DATE-OBS.  The program is implemented because 
+**CheckDateObs.py** - This program reads FITS files in the current working directory and checks the header keyword DATE-OBS.  The program is implemented because 
 the TCS sometimes sends a DATE-OBS of YYYY-MM-DDTHH:MM:SS.S where it reports SS.S as 60.n.  This causes an error when trying to rename the files in the next 
 step.  In cases where the SS.S is 60.n, the minute in incremented by 1 and the seconds are reported as 00.n.
 
-** RenameFiles.py ** - This program is executed from the top level NEWFIRM data directory, UTYYYYMMDD, and performs the following tasks: 
+**RenameFiles.py** - This program is executed from the top level NEWFIRM data directory, UTYYYYMMDD, and performs the following tasks: 
 - Copies all original data to a subdirectory "SAVE"
 - Sanitizes the file list so that it will not work on files that have filenames that include certain strings, such as "test", "junk", "temp", "focus", etc
 - Sanitizes files based on the FITS header "OBJECT" keyword to not process files where the "OBJECT" keyword contains certain strings, such as "test", "junk", etc;
 - Moves files that pass the previous steps to a new filename of the format "c4n_obstype_YYMMDD_HHMMSS_expnum.fits where the values for obstype, YYMMDD, HHMMSS, and expnum are taken from the FITS header.  For this purpose, files with an OBSTYPE of "sky" or "standard" are treated as "object".
 - Removes any files from the top level data directory that don't pass the sanitization steps.  The strings used to sanitize the files can be modified by the user.  
 
-** SortFITS.py ** - This program creates a time-sorted log for the night that includes the following FITS keywords: DATE-OBS, EXPTIME, FILTER, TELFOCUS, TEMPOUT, AIRMASS, ZD, AZ, TELRA, TELDEC, SEEING, and OBJECT. 
+**SortFITS.py** - This program creates a time-sorted log for the night that includes the following FITS keywords: DATE-OBS, EXPTIME, FILTER, TELFOCUS, TEMPOUT, AIRMASS, ZD, AZ, TELRA, TELDEC, SEEING, and OBJECT. 
 
-** SplitMef.py ** - This program reads the MEF files in the current directory and splits the extensions into a subdirectory.  The primary
+**SplitMef.py** - This program reads the MEF files in the current directory and splits the extensions into a subdirectory.  The primary
 header information is copied to each extension header.
 
-** TrimImage.py ** - 
+**TrimImage.py** - 
 
-** SortCombDarks.py ** - 
+**SortCombDarks.py** - 
 
-** SortCombFlats.py ** -
+**SortCombFlats.py** -
 
-** MakeBadPixMask.py ** -
+**MakeBadPixMask.py** -
 
-** Prep4DarkFlatCor.py ** - 
+**Prep4DarkFlatCor.py** - 
 
-** DarkFlatCorrect.py ** -
+**DarkFlatCorrect.py** -
 
-** Prep4SkySub.py ** -
+**Prep4SkySub.py** -
 
-** SkySub.py ** -
+**SkySub.py** -
 
 ---
 
