@@ -152,7 +152,7 @@ step.  In cases where the SS.S is 60.n, the minute in incremented by 1 and the s
 **SplitMef.py** - This program reads the MEF files in the current directory and splits the extensions into a subdirectory.  The primary
 header information is copied to each extension header.
 
-**TrimImage.py** - 
+**TrimImage.py** - This program reads the individual detector images in their directory and trims the image, removing the overscan region.
 
 **SortCombDarks.py** - 
 
