@@ -160,9 +160,9 @@ header information is copied to each extension header.
 
 **MakeBadPixMask.py** - This program reads the data directory and looks for the master "on" and "off" KXs flats.  It uses the ratio between the "on" and "off" flats to create bad pixel masks for each detector.  Additionally, the top 48 rows of detector 3 are masked to remove the effects of the bad pixel located there.
 
-**Prep4DarkFlatCor.py** - 
+**Prep4DarkFlatCor.py** - Searches the reduction directory for the master darks, normalized flats, and object files.  Writes summary files in the data directory listing OBSTYPE, EXPTIME, EXPCOADD, COADDS, FSAMPLE, and FILTER for FITS files.
 
-**DarkFlatCorrect.py** -
+**DarkFlatCorrect.py** - This program reads the summary files produced in the previous step.  The object observations are flat-fielded and dark corrected based on the values of the keywords in the summary file.  If no correcsponding dark frame exists, the programs tries to scale one for use.  The software contains a variable called "calpath_root".  This can be set to a local repository of calibration frames, i.e., dark, flats, and bad-pixel masks.  If a calibration frame is not found in the local working directory, the software will look in the local calibration repository.  **The user will have to set the path of the local repository for this to work.** 
 
 **Prep4SkySub.py** -
 
