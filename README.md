@@ -164,7 +164,7 @@ header information is copied to each extension header.
 
 **DarkFlatCorrect.py** - This program reads the summary files produced in the previous step.  The object observations are flat-fielded and dark corrected based on the values of the keywords in the summary file.  If no correcsponding dark frame exists, the programs tries to scale one for use.  The software contains a variable called "calpath_root".  This can be set to a local repository of calibration frames, i.e., dark, flats, and bad-pixel masks.  If a calibration frame is not found in the local working directory, the software will look in the local calibration repository.  **The user will have to set the path of the local repository for this to work.** 
 
-**Prep4SkySub.py** -
+**Prep4SkySub.py** - This program looks for data that have been flat-fielded and dark-subtracted.
 
 **SkySub.py** -
 
