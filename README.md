@@ -154,7 +154,7 @@ header information is copied to each extension header.
 
 **TrimImage.py** - This program reads the individual detector images in their directory and trims the image, removing the overscan region.
 
-**SortCombDarks.py** - 
+**SortCombDarks.py** - This programs reads the files in the directory and finds those that I have OBSTYPE "dark".  For those dark frames, it reads the FITS header keywords for the exposure time per coadd (EXPCOADD), the number of coadds (COADDS), and the number of Fowler samples (FSAMPLE).  The program then combines dark frames with same values of the aforementioned keywords.  The output files are called dark_[EXPCOADD]s
 
 **SortCombFlats.py** -
 
