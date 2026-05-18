@@ -177,7 +177,7 @@ The pipeline produces sky-subtracted images in a subdirectory of the top-level d
 
 data/UTYYYYMMDD/Skysub
 
-Each program produces a log file <Program>.log during execution.  The logs contain details of the
+Each program produces a log file Program.log during execution.  The logs contain details of the
 steps performed by the program and may be useful to debug any failures.
 
 After the data have been sky-subtracted, one will need to place an astrometric solution on the individual 
@@ -220,6 +220,12 @@ PARAMETERS_NAME, FILTER_NAME, and STARNNW_NAME.
 
 Furthermore, the variable "wcs_path" will need to be modified in SetupSextractor.py, SetupScamp.py, SetupSwarp.py, and
 NF_Swarp_Stack.py.
+
+---
+
+## Astrometry and Stacking with Emmanuel Bertin's Astromatic software ##
+
+
 
 ---
 
