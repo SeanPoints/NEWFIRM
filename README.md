@@ -231,9 +231,16 @@ This section contains some notes on how to use Emmanuel Bertin's Astromatic soft
 
 **SetupSextractor.py** - This program creates an executable script, "run_sextractor.sh", in the data/UTYYYYMMDD/Skysub directory.  Once the script is created, you can run it from the command line.  
 
-**SetupScamp.py** - This program contains an executable script, "run_scamp.sh", in the data/UTYYYYMMDD directory.  It uses the FITS_LDAC catalogs created by "run_sextractor.sh" and finds an astrometric solution using the GAIA-EDR3 catalog.  Sometimes Scamp can fail because the connection to the database times out.
+**SetupScamp.py** - This program contains an executable script, "run_scamp.sh", in the data/UTYYYYMMDD directory.  It uses the FITS_LDAC catalogs created by "run_sextractor.sh" and finds an astrometric solution using the GAIA-EDR3 catalog.  Sometimes Scamp can fail because the connection to the database times out.  Scamp can also fail if the initial astrometric solution is large.  The parameter that controls the uncertainty in the astrometric solution is "POSITION_MAXERR" in the WCS/default.scamp file.  The current default value is set to 1 arcmin.  This parameter can be increased as needed.  We note that the raw astrometric solution of NEWFIRM data can change during the night, depending upon how often the telescope position is corrected.
 
-**SetupSwarp.py** - This program
+**SetupSwarp.py** - This program reads the astrometri solutions given by Scamp.  It uses those solutions to project the four NEWFIRM etectors onto the same image.  The output FITS file is 4200 x 4200 pixels with the center being the average cordinate of the four detectors and the pixel scale set to 0.4 arcsec/pix.
+
+**MakeSwarpMasks.py** - This program creates a mask file for each exposure.  These masks files are generated so the detector gap can be masked when making stacked images so that the zero-value pixels do not affect the image combination.
+
+**SetupSwarpStack.py** - This program looks for previously swarped files and sorts them based on FITS header keywords OBJECT, FILTER, EXPCOADD, and COADDS.  It writes individual files in the data/UTYYYYMMDD/Skysub directory for each OBJECT, FILTER, EXPCOADD, COADDS combination as well as a file that contains the names of the corresponding mask files.
+
+**NF_Swarp_Stack.py** - This program creates an executable script in the data/UTYYYYMMDD/Skysub directory called "run_swarp_stack.sh".  This combines multiple, dithered exposures of an object in a given filter.  The output, stacked images are written to a new directory 
+data/UTYYYYMMDD/Skysub/Stacked
 
 ---
 
