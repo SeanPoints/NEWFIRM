@@ -156,9 +156,9 @@ header information is copied to each extension header.
 
 **SortCombDarks.py** - This programs reads the files in the directory and finds those that have OBSTYPE="dark".  For those dark frames, it reads the FITS header keywords for the exposure time per coadd (EXPCOADD), the number of coadds (COADDS), and the number of Fowler samples (FSAMPLE).  The program then combines dark frames with same values of the aforementioned keywords.  The output files are called dark_[EXPCOADD]s_[COADDS]c_[FSAMPLE]f_[CCD].fits, providing a unique name for each dark.
 
-**SortCombFlats.py** - This program reads the files in the directory and finds those that have OBSTYPE="dflat".  It sorts the flats based on the FITS keyword headers FILTER.  The program reads the FITS keyword DFLAMPVA to determine if the dome flats are "on" or "off".  The programs scales the individual flat sby the mode and median combines them. The "off" flats are then subtracted from the "on" flats, producing a master flat for the filter.  The master flat is normalized by the median value to produce a normalized flat.  The output files are flat_[FILTER]_[lamp_status]_[CCD]
+**SortCombFlats.py** - This program reads the files in the directory and finds those that have OBSTYPE="dflat".  It sorts the flats based on the FITS keyword headers FILTER.  The program reads the FITS keyword DFLAMPVA to determine if the dome flats are "on" or "off".  The programs scales the individual flat sby the mode and median combines them. The "off" flats are then subtracted from the "on" flats, producing a master flat for the filter.  The master flat is normalized by the median value to produce a normalized flat.  The normalized flat files are called nflat_[FILTER]_[CCD].fits.  The intermediate processed flats, .i.e. the combined "on" and "off" flats for each filter and the master flats in each filter, are also saved to disk. 
 
-**MakeBadPixMask.py** -
+**MakeBadPixMask.py** - This program reads the data directory and looks for the master "on" and "off" KXs flats.  It uses the ratio between the "on" and "off" flats to create bad pixel masks for each detector.  Additionally, the top 48 rows of detector 3 are masked to remove the effects of the bad pixel located there.
 
 **Prep4DarkFlatCor.py** - 
 
