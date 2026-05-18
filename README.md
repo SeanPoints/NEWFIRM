@@ -16,7 +16,8 @@ number of coadds, exposure times per coadd, and number of Fowler samples to crea
 imdividual images for sky-subtraction.
 
 This pipeline does not, as yet, compute the final astrometric WCS for the images nor does it recombine the 
-individual exposures or stack images.  These issues will be addressed in future releases.
+individual exposures or stack images.  These issues are addressed in some supplementary materials, but are not within
+the supported scope of this package.
 
 ---
 
@@ -164,9 +165,9 @@ header information is copied to each extension header.
 
 **DarkFlatCorrect.py** - This program reads the summary files produced in the previous step.  The object observations are flat-fielded and dark corrected based on the values of the keywords in the summary file.  If no correcsponding dark frame exists, the programs tries to scale one for use.  The software contains a variable called "calpath_root".  This can be set to a local repository of calibration frames, i.e., dark, flats, and bad-pixel masks.  If a calibration frame is not found in the local working directory, the software will look in the local calibration repository.  **The user will have to set the path of the local repository for this to work.** 
 
-**Prep4SkySub.py** - This program looks for data that have been flat-fielded and dark-subtracted.
+**Prep4SkySub.py** - This program looks for data that have been flat-fielded and dark-subtracted.  The program then creates a summary file of the images to be sky corrected.
 
-**SkySub.py** -
+**SkySub.py** - This program performs the sky subtraction for individual images.  The program examines the files in the reduction directory to determine if there are any with a value of OBSTYPE="sky".  Images with an OBSTYPE="sky" are taken only to perform sky-subtraction in crowded fields or for extended objects.  If "sky" images are found, the program attenpts to find the corresponding "object" images.  The corresponding "object" images are currently selected to within 10 degrees of the "sky" frame and taken within 1 hour of the sky image.  These limits are set in the code.  Future versions may have the ability to set the limits on the command line.  In the normal mode of operation, the program finds "object" or "standard" images that have the same observing parameters (i.e., FILTER, EXPTIME, COADDS, EXPCOADD, FSAMPLE) and selects up to the nine images closest in time. Once "sky" images are selected, they are scaled to the object frame and median combined.  The combined "sky" image is then subtracted from the "object" image.  The sky-subtracted images for all detectors are placed in the directory /data/UTYYYYMMDD/Skysub. 
 
 ---
 
