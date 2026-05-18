@@ -223,9 +223,17 @@ NF_Swarp_Stack.py.
 
 ---
 
-## Astrometry and Stacking with Emmanuel Bertin's Astromatic software ##
+## Astrometry and Stacking ##
 
+This section contains some notes on how to use Emmanuel Bertin's Astromatic software to put astrometric solutions on NEWFIRM data and stack the images.  This in not explicitly supported.
 
+**Getting Started:** The basic files necessary to run the Astromatic software are listed above and included in this repository.  As mentioned one needs to edit the default.sex file and update the path information for PARAMETERS_NAME, FILTER_NAME, and STARNNW_NAME to reflect the location of those files on your system.  The programs Setup_sextractor.py, SetupScamp.py, SetupSwarp.py, and NF_Swarp_Stack.py need to be edited to change the variable "wcs_path" to reflect the location of the Astromatic configuration files on your system.
+
+**SetupSextractor.py** - This program creates an executable script, "run_sextractor.sh", in the data/UTYYYYMMDD/Skysub directory.  Once the script is created, you can run it from the command line.  
+
+**SetupScamp.py** - This program contains an executable script, "run_scamp.sh", in the data/UTYYYYMMDD directory.  It uses the FITS_LDAC catalogs created by "run_sextractor.sh" and finds an astrometric solution using the GAIA-EDR3 catalog.  Sometimes Scamp can fail because the connection to the database times out.
+
+**SetupSwarp.py** - This program
 
 ---
 
