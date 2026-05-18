@@ -240,7 +240,7 @@ This section contains some notes on how to use Emmanuel Bertin's Astromatic soft
 **SetupSwarpStack.py** - This program looks for previously swarped files and sorts them based on FITS header keywords OBJECT, FILTER, EXPCOADD, and COADDS.  It writes individual files in the data/UTYYYYMMDD/Skysub directory for each OBJECT, FILTER, EXPCOADD, COADDS combination as well as a file that contains the names of the corresponding mask files.
 
 **NF_Swarp_Stack.py** - This program creates an executable script in the data/UTYYYYMMDD/Skysub directory called "run_swarp_stack.sh".  This combines multiple, dithered exposures of an object in a given filter.  The output, stacked images are written to a new directory 
-data/UTYYYYMMDD/Skysub/Stacked
+data/UTYYYYMMDD/Skysub/Stacked.  **Note: This program uses the same default.swarp configuration file used above.  Therefore, unless the file is changed, the stacked images will be 4200 x 4200 pixels.**
 
 ---
 
