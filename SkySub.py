@@ -317,7 +317,7 @@ while j < num_detectors:
 
 time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-with open(logfile, logfile_flag) as f:
+with open(logfile, 'a') as f:
     sys.stdout = f
     print("End SkySub.py:", time)
     sys.stdout = sys.__stdout__
