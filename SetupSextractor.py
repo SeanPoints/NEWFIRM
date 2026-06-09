@@ -26,7 +26,7 @@ def get_last_word_in_path(file_path):
 
 workdir = os.getcwd()
 swarp_dir = workdir + '/' + 'Skysub/'
-wcs_path = '/Users/sean.points/data/NEWFIRM/WCS/'
+wcs_path = '/home/points/bin/newfirm/WCS/'
 outfile = swarp_dir + 'run_sextractor.sh'
 
 files = glob('%s/sfd*.fits' % (swarp_dir))

@@ -305,7 +305,15 @@ while j < num_detectors:
 
         log_sky_usage(obj_file, sky_files, logfile)
 
-        subtract_sky(obj_file, sky_files, ext_dir, outdir)
+        if len(sky_files) > 2:
+            subtract_sky(obj_file, sky_files, ext_dir, outdir)
+
+        else:
+            with open(logfile, 'a') as f:
+                sys.stdout = f
+                print(f"Skipping {obj_file}: Only {len(sky_files)} sky files")
+                sys.stdout = sys.__stdout__
+
     j = j + 1
 
 #j = 1
@@ -317,7 +325,7 @@ while j < num_detectors:
 
 time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-with open(logfile, logfile_flag) as f:
+with open(logfile, 'a') as f:
     sys.stdout = f
     print("End SkySub.py:", time)
     sys.stdout = sys.__stdout__
