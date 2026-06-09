@@ -18,7 +18,7 @@ def get_last_word_in_path(file_path):
 
 workdir = os.getcwd()
 swarp_dir = workdir + '/' + 'Skysub/'
-wcs_path = '/home/points/bin/newfirm/WCS/'
+wcs_path = '/Users/sean.points/bin/newfirm/WCS/'
 outfile = swarp_dir + "run_swarp_stack.sh"
 outdir = swarp_dir + "Stacked/"
 
