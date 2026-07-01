@@ -4,7 +4,8 @@
  
 #---------------------------- Reference catalogs ------------------------------
  
-REF_SERVER         vizier.unistra.fr   # Internet addresses of catalog servers
+REF_SERVER         vizier.cfa.harvard.edu
+#REF_SERVER         vizier.unistra.fr   # Internet addresses of catalog servers
                                        # Possible mirrors include:
                                        # vizier.nao.ac.jp,
                                        # vizier.hia.nrc.ca,

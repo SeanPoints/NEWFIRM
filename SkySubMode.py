@@ -236,6 +236,10 @@ def build_sky_model(obj_data, sky_files, ext_dir):
 
     obj_med = np.median(obj_data[(obj_data > 0) & (~obj_mask)])
 
+    obj_mean = np.mean(obj_data[(obj_data > 0) & (~obj_mask)])
+
+    obj_mode = 3 * obj_med - 2 * obj_mean
+
     sky_stack = []
 
     for sky in sky_files:
@@ -249,6 +253,10 @@ def build_sky_model(obj_data, sky_files, ext_dir):
         combined_mask = obj_mask | sky_mask
 
         sky_med = np.median(sky_data[(sky_data > 0) & (~combined_mask)])
+
+        sky_mean = np.mean(sky_data[(sky_data > 0) & (~combined_mask)])
+
+        sky_mode = 3 * sky_med - 2 * sky_mean
 
         scale = obj_med / sky_med
 
