@@ -43,6 +43,28 @@ from astropy.convolution import convolve
 from datetime import datetime
 
 # ============================================================
+# ADD CONSTANT TO BACKGROUND
+# ============================================================
+
+def add_constant(result):
+    
+    # Object stats
+    # No clipping
+    subarr = result[np.isfinite(result)]
+    # median_noclip = np.median(subarr)
+    # mean_noclip = np.mean(subarr)
+    # mode_noclip = 3 * median_noclip - 2 * mean_noclip
+    # 3-sigma clipping
+    clipped = sigma_clip(subarr, sigma=3, maxiters=3)
+    subarr_clip = clipped.compressed()
+    median_clip = np.median(subarr_clip)
+    mean_clip = np.mean(subarr_clip)
+    mode_clip = 3 * median_clip - 2 * mean_clip
+    constant = 20 - mode_clip
+    print(mode_clip, constant)
+    result[result != 0] += constant
+
+# ============================================================
 # CALCULATE STATISTICS
 # ============================================================
 
@@ -298,6 +320,7 @@ def subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile):
     for i, sky in enumerate(sky_files, start=1):
         hdr[f"SKY{i:03d}"] = sky
 
+    add_constant(result)
 
     outfile = os.path.join(
         outdir,
