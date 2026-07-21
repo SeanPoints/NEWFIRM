@@ -73,7 +73,7 @@ for filename in sorted_files:
             hdr = hdu.header
 
             date_obs = hdr["DATE-OBS"]
-            print(fname, date_obs)
+            #print(fname, date_obs)
 
 
             date_part, time_part = date_obs.split("T")
