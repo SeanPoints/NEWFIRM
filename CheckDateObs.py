@@ -22,6 +22,9 @@ from pathlib import Path
 
 workdir = os.getcwd() + '/'
 
+savedir = workdir + 'SAVE/'
+os.makedirs(savedir, exist_ok=True)
+
 logfile = workdir + 'CheckDateObs.log'
 
 if os.path.exists(logfile):
@@ -49,6 +52,18 @@ for filename in sorted_files:
         print(f"Processing {fname}")
         sys.stdout = sys.__stdout__
 
+    hdr = fits.getheader(filename)
+    date_obs = hdr["DATE-OBS"]
+
+    if date_obs is None or "T" not in date_obs or date_obs == "T":
+        moved_file = os.path.join(savedir, fname)
+        os.rename(filename, moved_file)
+        with open(logfile, 'a') as f:
+            sys.stdout = f
+            print(f"Skipping {fname}; Bad DATE-OBS format.")
+            sys.stdout = sys.__stdout__
+        continue
+
     with fits.open(filename, mode="update") as hdul:
 
         modified = False
@@ -58,9 +73,8 @@ for filename in sorted_files:
             hdr = hdu.header
 
             date_obs = hdr["DATE-OBS"]
+            print(fname, date_obs)
 
-            if date_obs is None or "T" not in date_obs:
-                continue
 
             date_part, time_part = date_obs.split("T")
 
