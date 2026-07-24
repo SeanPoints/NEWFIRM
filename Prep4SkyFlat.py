@@ -6,7 +6,7 @@ CTIO
 
 SDP 2025-10-08
 
-Synopsis: Prepare files for sky subtraction.
+Synopsis: Prepare files for sky flattening.
 
 # Prepare for object image reductions
 # Read object files in data directory and print to list with FITS keywords
@@ -98,7 +98,7 @@ path_components = workdir.split(os.sep)
 last = path_components[-1]
 #print(workdir)
 
-logfile = workdir + '/' + 'Prep4SkySub.log'
+logfile = workdir + '/' + 'Prep4SkyFlat.log'
 
 if os.path.exists(logfile):
     logfile_flag = "a"
@@ -109,7 +109,7 @@ time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 with open(logfile, logfile_flag) as f:
     sys.stdout = f
-    print("Begin Prep4SkySub.py:", time)
+    print("Begin Prep4SkyFlat.py:", time)
     print("Working directory:", workdir)
     sys.stdout = sys.__stdout__
 
@@ -131,9 +131,9 @@ while j < num_detectors:
 
    #print(ext_dir)
 
-   obj_files = glob('%s/sfdtc4n_object*fits' % (ext_dir))
+   obj_files = glob('%s/fdtc4n_object*fits' % (ext_dir))
    sorted_obj_files = sorted(obj_files)
-   out_obj = ext_dir + 'skysub.txt'
+   out_obj = ext_dir + 'skyflat.txt'
    out_obj_sum = out_obj.replace('.txt', '_summary.txt')
    short_obj = get_last_word_in_path(out_obj)
    short_obj_sum = get_last_word_in_path(out_obj_sum)
@@ -156,5 +156,5 @@ time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 with open(logfile, "a") as f:
     sys.stdout = f
-    print("End Prep4SkySub.py:", time)
+    print("End Prep4SkySub2.py:", time)
     sys.stdout = sys.__stdout__

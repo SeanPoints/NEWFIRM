@@ -169,17 +169,115 @@ def build_source_mask(image):
 
     return segm.data > 0
 
-
-# ============================================================
-# SKY MATCHING
-# ============================================================
+#
+# SKY MATCHING (Test)
+#
 
 def find_sky_matches(obs_tab):
 
     coords = SkyCoord(obs_tab["RA"], obs_tab["DEC"], unit="deg")
     times = obs_tab["UT"] * u.hour
 
-    obj_mask = obs_tab["OBSTYPE"] == "object"
+    obj_mask = (
+        (obs_tab["OBSTYPE"] == "object") |
+        (obs_tab["OBSTYPE"] == "sky")
+    )
+    sky_mask = obs_tab["OBSTYPE"] == "sky"
+
+    obj_tab = obs_tab[obj_mask]
+    sky_tab = obs_tab[sky_mask]
+
+    obj_coords = coords[obj_mask]
+    sky_coords = coords[sky_mask]
+
+    obj_times = times[obj_mask]
+    sky_times = times[sky_mask]
+
+    results = {}
+
+    for i, obj in enumerate(obj_tab):
+
+        obj_file = obj["File"]
+        obj_coord = obj_coords[i]
+        obj_time = obj_times[i]
+
+        # --------------------------------------------------------
+        # First look for matching sky frames
+        # --------------------------------------------------------
+        sky_matches = []
+
+        for j, sky in enumerate(sky_tab):
+
+            if not (
+                sky["FILTER"] == obj["FILTER"] and
+                sky["EXPCOADD"] == obj["EXPCOADD"] and
+                sky["COADDS"] == obj["COADDS"] and
+                sky["FSAMPLE"] == obj["FSAMPLE"]
+            ):
+                continue
+
+            sep = obj_coord.separation(sky_coords[j])
+            dt = abs(obj_time - sky_times[j])
+
+            if sep <= 10*u.deg and dt <= 1*u.hour:
+                sky_matches.append(sky["File"])
+
+        if len(sky_matches) > 0:
+            results[obj_file] = sky_matches
+            continue
+
+        # --------------------------------------------------------
+        # No matching skies found.
+        # Objects search all object+sky frames.
+        # Sky frames search only sky frames.
+        # --------------------------------------------------------
+        if obj["OBSTYPE"] == "sky":
+            candidate_tab = sky_tab
+            candidate_times = sky_times
+        else:
+            candidate_tab = obj_tab
+            candidate_times = obj_times
+
+        candidates = []
+
+        for j, other in enumerate(candidate_tab):
+
+            if not (
+                other["FILTER"] == obj["FILTER"] and
+                other["EXPCOADD"] == obj["EXPCOADD"] and
+                other["COADDS"] == obj["COADDS"] and
+                other["FSAMPLE"] == obj["FSAMPLE"]
+            ):
+                continue
+
+            dt = abs(obj_time - candidate_times[j])
+
+            if dt <= 0.5*u.hour:
+                candidates.append((dt, other["File"]))
+
+        candidates.sort(key=lambda x: x[0])
+
+        if len(candidates) > 9:
+            candidates = candidates[:9]
+
+        results[obj_file] = [c[1] for c in candidates]
+
+    return results
+
+# ============================================================
+# SKY MATCHING
+# ============================================================
+
+def find_sky_matches_old(obs_tab):
+
+    coords = SkyCoord(obs_tab["RA"], obs_tab["DEC"], unit="deg")
+    times = obs_tab["UT"] * u.hour
+
+    #obj_mask = obs_tab["OBSTYPE"] == "object"
+    obj_mask = (
+        (obs_tab["OBSTYPE"] == "object") |
+        (obs_tab["OBSTYPE"] == "sky")
+    )
     sky_mask = obs_tab["OBSTYPE"] == "sky"
 
     obj_tab = obs_tab[obj_mask]
@@ -291,7 +389,12 @@ def build_sky_model(obj_data, sky_files, ext_dir):
 
     clipped = sigma_clip(sky_stack, sigma=3, axis=0)
 
-    sky_model = np.nanmedian(clipped, axis=0)
+    sky_model_test = np.nanmedian(clipped, axis=0) 
+
+    sky_mean = np.mean(sky_model_test)
+
+    sky_model = sky_model_test / sky_mean
+    print("Mean sky_model:", sky_mean)
 
     return sky_model
 
@@ -300,7 +403,7 @@ def build_sky_model(obj_data, sky_files, ext_dir):
 # SKY SUBTRACTION
 # ============================================================
 
-def subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile):
+def flatten_sky(obj_file, sky_files, ext_dir, outdir, logfile):
 
     obj_path = os.path.join(ext_dir, obj_file)
 
@@ -311,35 +414,36 @@ def subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile):
 #    result = obj_data - sky_model
     calc_stats(obj_file, obj_data, sky_model, logfile)
     
-    result = obj_data - sky_model 
+    #result = obj_data - sky_model 
+    result = obj_data / sky_model 
 
     time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sky_key = f"{time}; Sky-subtracted"
-    hdr["SKYCOR"] = sky_key
-    hdr["PYSKYSUB"] = ('True', "SkySub.py Flag")
-    hdr["NSKYSUB"] = (len(sky_files), "Number of sky frames used")
+    sky_key = f"{time}; Sky-flattened"
+    hdr["SKYFCOR"] = sky_key
+    hdr["PYSFLAT"] = ('True', "SkyFlatMode.py Flag")
+    hdr["NSFLAT"] = (len(sky_files), "Number of sky frames used")
     for i, sky in enumerate(sky_files, start=1):
-        hdr[f"SKY{i:03d}"] = sky
+        hdr[f"SFLAT{i:03d}"] = sky
 
-    add_constant(result)
+    #add_constant(result)
 
     outfile = os.path.join(
-        outdir, obj_file
-    #    obj_file.replace("fdtc4n", "sfdtc4n")
+        outdir,
+        obj_file.replace("fdtc4n", "sfdtc4n")
     )
 
     fits.writeto(outfile, result, hdr, overwrite=True)
 
     print("Wrote:", outfile)
 
-    skyfile = os.path.join(
-        outdir,
-        obj_file.replace("sfdtc4n", "sky_sfdtc4n")
-    )
+    #skyfile = os.path.join(
+    #    outdir,
+    #    obj_file.replace("fdtc4n", "skyflat_fdtc4n")
+    #)
 
-    fits.writeto(skyfile, sky_model, hdr, overwrite=True)
+    #fits.writeto(skyfile, sky_model, hdr, overwrite=True)
 
-    print("Wrote:", skyfile)
+    #print("Wrote:", skyfile)
 
 
 # ============================================================
@@ -348,7 +452,7 @@ def subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile):
 
 workdir = os.getcwd()
 
-logfile = workdir + '/' + 'SkySub.log'
+logfile = workdir + '/' + 'SkyFlatMode.log'
 
 
 if os.path.exists(logfile):
@@ -360,7 +464,7 @@ time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 with open(logfile, logfile_flag) as f:
     sys.stdout = f
-    print("Begin SkySub.py:", time)
+    print("Begin SkyFlatMode.py:", time)
     print("Working directory:", workdir)
     sys.stdout = sys.__stdout__
 
@@ -370,7 +474,8 @@ j = 1
 while j < num_detectors:
     ext_dir = workdir + '/' + str(j) + '/'
 
-    outdir = os.path.join(workdir + '/', "Skysub")
+    #outdir = os.path.join(workdir + '/', "Skysub")
+    outdir = ext_dir
 
     with open(logfile, 'a') as f:
         sys.stdout = f
@@ -381,7 +486,7 @@ while j < num_detectors:
     os.makedirs(outdir, exist_ok=True)
 
     obs_tab = Table.read(
-        os.path.join(ext_dir, "skysub_summary.txt"),
+        os.path.join(ext_dir, "skyflat_summary.txt"),
         format="ascii.fixed_width"
     )
 
@@ -395,7 +500,7 @@ while j < num_detectors:
         log_sky_usage(obj_file, sky_files, logfile)
 
         if len(sky_files) > 2:
-            subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile)
+            flatten_sky(obj_file, sky_files, ext_dir, outdir, logfile)
 
         else:
             with open(logfile, 'a') as f:
@@ -409,5 +514,5 @@ time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 with open(logfile, 'a') as f:
     sys.stdout = f
-    print("End SkySub.py:", time)
+    print("End SkyFlatMode.py:", time)
     sys.stdout = sys.__stdout__

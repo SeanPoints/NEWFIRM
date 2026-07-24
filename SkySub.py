@@ -286,14 +286,14 @@ def subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile):
     sky_key = f"{time}; Sky-subtracted"
     hdr["SKYCOR"] = sky_key
     hdr["PYSKYSUB"] = ('True', "SkySub.py Flag")
-    hdr["NSKY"] = (len(sky_files), "Number of sky frames used")
+    hdr["NSKYSUB"] = (len(sky_files), "Number of sky frames used")
     for i, sky in enumerate(sky_files, start=1):
         hdr[f"SKY{i:03d}"] = sky
 
 
     outfile = os.path.join(
-        outdir,
-        obj_file.replace("fdtc4n", "sfdtc4n")
+        outdir, obj_file
+        #obj_file.replace("fdtc4n", "sfdtc4n")
     )
 
     fits.writeto(outfile, result, hdr, overwrite=True)
@@ -302,7 +302,7 @@ def subtract_sky(obj_file, sky_files, ext_dir, outdir, logfile):
 
     skyfile = os.path.join(
         outdir,
-        obj_file.replace("fdtc4n", "sky_fdtc4n")
+        obj_file.replace("sfdtc4n", "sky_sfdtc4n")
     )
 
     fits.writeto(skyfile, sky_model, hdr, overwrite=True)
@@ -373,12 +373,6 @@ while j < num_detectors:
 
     j = j + 1
 
-#j = 1
-#while j < num_detectors:
-#    ext_dir = workdir + '/' + str(j) + '/'
-#    save_dir = ext_dir + 'Raw/'
-#    files_cleanup(ext_dir, save_dir)
-#    j = j + 1
 
 time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
